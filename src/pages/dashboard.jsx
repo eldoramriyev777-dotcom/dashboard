@@ -347,7 +347,7 @@ export function ResponsiveDrawer(props) {
       </Card>
     </Grid>
   </Grid>
-</Box>
+        </Box>
 
         <Box sx={{ position: 'fixed', bottom: 24, right: 24 }}>
         <Button

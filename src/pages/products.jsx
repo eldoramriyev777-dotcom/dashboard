@@ -10,7 +10,7 @@ import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
-import { Button, Card, CardContent, Grid, Typography, Select, MenuItem, Avatar, Stack } from "@mui/material";
+import { Button, Card, CardContent, Grid, Typography, Select, MenuItem, Avatar, Stack, InputAdornment, TextField } from "@mui/material";
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import { AccountCircle } from '@mui/icons-material';
 import { NavLink, useNavigate } from 'react-router';
@@ -21,6 +21,20 @@ import CategoryIcon from '@mui/icons-material/Category';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import SearchIcon from "@mui/icons-material/Search";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  TablePagination,
+} from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const drawerWidth = 240;
 
@@ -81,6 +95,25 @@ export function ResponsiveDrawer(props) {
   const handleBack = () => {
     navigate(-1)
   }
+
+    // Demo ma'lumotlar
+
+    const [page, setPage] = React.useState(0);
+    const rowsPerPage = 5;
+
+    const rows = [
+      { product: "iPhone 15", price: 1200, currency: "USD", posted: "2025-10-10" },
+      { product: "Samsung Galaxy S24", price: 1100, currency: "USD", posted: "2025-10-12" },
+      { product: "MacBook Air M3", price: 1500, currency: "USD", posted: "2025-09-29" },
+      { product: "Sony Headphones", price: 250, currency: "USD", posted: "2025-09-18" },
+      { product: "Dell XPS 13", price: 1400, currency: "USD", posted: "2025-08-03" },
+      { product: "iPad Pro", price: 1300, currency: "USD", posted: "2025-07-22" },
+      { product: "Apple Watch", price: 600, currency: "USD", posted: "2025-06-30" },
+    ];
+  
+    const handleChangePage = (event, newPage) => {
+      setPage(newPage);
+    }
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -120,7 +153,165 @@ export function ResponsiveDrawer(props) {
         <Typography sx={{ mb: 2 }}>Manage your product listing</Typography>
 
        <Box>
+       <Box sx={{ width: "100%", mt: 4 }}>
+          <Grid 
+            container 
+            spacing={0} 
+            sx={{ 
+              gap: "15px", 
+              width: "100%", 
+              justifyContent: "space-between"
+            }}
+          >
+            <Grid item xs={12} sm={6} md={3} sx={{ flex: 1 }}>
+              <Card sx={{ p: 2, borderRadius: 3, boxShadow: 3, width: "100%" }}>
+                <CardContent>
+                  <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
+                    <Typography sx={{ color: "#1e40af", fontWeight: 600 }}>Total Products</Typography>
+                    <PeopleAltIcon sx={{ color: "#1e40af", fontSize: 26 }} />
+                  </Box>
+                  <Typography sx={{ fontSize: 28, fontWeight: 700 }}>3</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={3} sx={{ flex: 1 }}>
+              <Card sx={{ p: 2, borderRadius: 3, boxShadow: 3, width: "100%" }}>
+                <CardContent>
+                  <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
+                    <Typography sx={{ color: "#1e40af", fontWeight: 600 }}>Active</Typography>
+                    <PeopleAltIcon sx={{ color: "#1e40af", fontSize: 26 }} />
+                  </Box>
+                  <Typography sx={{ fontSize: 28, fontWeight: 700 }}>18</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={3} sx={{ flex: 1 }}>
+              <Card sx={{ p: 2, borderRadius: 3, boxShadow: 3, width: "100%" }}>
+                <CardContent>
+                  <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
+                    <Typography sx={{ color: "#1e40af", fontWeight: 600 }}>Pending</Typography>
+                    <PeopleAltIcon sx={{ color: "#1e40af", fontSize: 26 }} />
+                  </Box>
+                  <Typography sx={{ fontSize: 28, fontWeight: 700 }}>4</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={3} sx={{ flex: 1 }}>
+              <Card sx={{ p: 2, borderRadius: 3, boxShadow: 3, width: "100%" }}>
+                <CardContent>
+                  <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
+                    <Typography sx={{ color: "#1e40af", fontWeight: 600 }}>Sold</Typography>
+                    <PeopleAltIcon sx={{ color: "#1e40af", fontSize: 26 }} />
+                  </Box>
+                  <Typography sx={{ fontSize: 28, fontWeight: 700 }}>2</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+        </Box>
         
+        <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between", backgroundColor: "white", padding: "20px", borderRadius: "15px", boxShadow: 3, mt: "30px"}}>
+          <TextField
+              variant="outlined"
+              placeholder="Search products..."
+              size="small"
+              sx={{
+                width: 300,
+                backgroundColor: "white",
+                borderRadius: 2,
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: 2,
+                },
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon color="action" />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <TextField
+              select
+              variant="outlined"
+              placeholder="Category"
+              size="small"
+              sx={{
+                width: 200,
+                backgroundColor: "white",
+                borderRadius: 2,
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: 2,
+                },
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <FilterListIcon color="action" />
+                  </InputAdornment>
+                ),
+              }}
+              SelectProps={{
+                native: true,
+              }}
+            >
+              <option value="">All Categories</option>
+              <option value="electronics">Electronics</option>
+              <option value="fashion">Fashion</option>
+              <option value="books">Books</option>
+              <option value="home">Home</option>
+            </TextField>
+        </Box>
+
+           <Paper sx={{ width: "100%", overflow: "hidden", mt: 3 }}>
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell sx={{ width: "35%" }}>Product</TableCell>
+              <TableCell sx={{ width: "15%" }}>Price</TableCell>
+              <TableCell sx={{ width: "15%" }}>Currency</TableCell>
+              <TableCell sx={{ width: "20%" }}>Posted</TableCell>
+              <TableCell sx={{ width: "15%" }}>Actions</TableCell>
+            </TableRow>
+          </TableHead>
+
+          <TableBody>
+            {rows
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row, index) => (
+                <TableRow key={index} hover>
+                  <TableCell>{row.product}</TableCell>
+                  <TableCell>{row.price}</TableCell>
+                  <TableCell>{row.currency}</TableCell>
+                  <TableCell>{row.posted}</TableCell>
+                  <TableCell>
+                    <IconButton color="primary" size="small">
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton color="error" size="small">
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <TablePagination
+        rowsPerPageOptions={[5]}
+        component="div"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+      />
+    </Paper>
+
        </Box>
         
         <Box sx={{ position: 'fixed', bottom: 24, right: 24 }}>

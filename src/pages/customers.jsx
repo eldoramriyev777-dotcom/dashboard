@@ -10,7 +10,7 @@ import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
-import { Button, Card, CardContent, Grid, Typography, Select, MenuItem, Avatar, Stack } from "@mui/material";
+import { Button, Card, CardContent, Grid, Typography, Select, MenuItem, Avatar, Stack, InputAdornment, TextField } from "@mui/material";
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import { AccountCircle } from '@mui/icons-material';
 import { NavLink, useNavigate } from 'react-router';
@@ -21,7 +21,8 @@ import CategoryIcon from '@mui/icons-material/Category';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
+import SearchIcon from "@mui/icons-material/Search";
+import FilterListIcon from "@mui/icons-material/FilterList";
 
 const drawerWidth = 240;
 
@@ -83,7 +84,7 @@ export function ResponsiveDrawer(props) {
     navigate(-1)
   }
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', backgroundColor: "#f9f9f9" }}>
       <CssBaseline />
       <AppBar position="fixed" sx={{ width: { sm: `calc(100% - ${drawerWidth}px)` }, ml: { sm: `${drawerWidth}px` }, bgcolor: "white", color: "black" }}>
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -115,11 +116,10 @@ export function ResponsiveDrawer(props) {
         </Drawer>
       </Box>
 
-      <Box component="main" sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` }, backgroundColor: "#f9f9f9" }}>
         <Toolbar />
         <Typography sx={{ fontWeight: 800, fontSize: 16 }}>Customers</Typography>
         <Typography sx={{ mb: 2 }}>Manage your customer accounts</Typography>
-
         <Box sx={{ width: "100%", mt: 4 }}>
           <Grid 
             container 
@@ -178,6 +178,59 @@ export function ResponsiveDrawer(props) {
               </Card>
             </Grid>
           </Grid>
+        </Box>
+        
+        <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between", backgroundColor: "white", padding: "20px", borderRadius: "15px", boxShadow: 3, mt: "30px"}}>
+          <TextField
+              variant="outlined"
+              placeholder="Search products..."
+              size="small"
+              sx={{
+                width: 300,
+                backgroundColor: "white",
+                borderRadius: 2,
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: 2,
+                },
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon color="action" />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <TextField
+              select
+              variant="outlined"
+              placeholder="Category"
+              size="small"
+              sx={{
+                width: 200,
+                backgroundColor: "white",
+                borderRadius: 2,
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: 2,
+                },
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <FilterListIcon color="action" />
+                  </InputAdornment>
+                ),
+              }}
+              SelectProps={{
+                native: true,
+              }}
+            >
+              <option value="">All Categories</option>
+              <option value="electronics">Electronics</option>
+              <option value="fashion">Fashion</option>
+              <option value="books">Books</option>
+              <option value="home">Home</option>
+            </TextField>
         </Box>
         
         <Box sx={{ position: 'fixed', bottom: 24, right: 24 }}>
